@@ -1,32 +1,25 @@
-# DIO_Oficina
-Sistema de Gerenciamento de Ordens de Serviço - Oficina Mecânica
-Este repositório contém a modelagem conceitual de um sistema de controle e execução de Ordens de Serviço (OS) para uma oficina mecânica, desenvolvido como desafio de projeto para fortalecimento de portfólio em arquitetura de dados.
+# Sistema de Controle e Gerenciamento de Ordens de Serviço (Oficina)
 
-Escopo do Projeto
-A solução foi projetada para cobrir todo o ciclo de vida do atendimento em uma oficina, desde a entrada do veículo até a execução final dos serviços.
+Este repositório contém o projeto lógico de banco de dados para um sistema de gestão de oficinas mecânicas. O foco da implementação é o controle rigoroso da execução de Ordens de Serviço (OS), gestão de custos (peças e serviços) e alocação de equipes técnicas.
 
-Componentes Principais:
-Gestão de Clientes e Veículos: Relacionamento 1:N garantindo que um cliente possa possuir diversos veículos cadastrados.
+## Definição do Escopo e Regras de Negócio
 
-Equipes de Trabalho: Agrupamento de mecânicos por equipes para otimização da divisão de tarefas e especialidades.
+A modelagem foi desenvolvida para suportar o fluxo operacional completo de uma oficina:
+- **Fluxo de Atendimento**: Um cliente vincula seus veículos ao sistema; cada entrada gera uma análise técnica por uma equipe especializada.
+- **Ordem de Serviço (OS)**: Centraliza o status da manutenção, datas de emissão/entrega e o cálculo financeiro final.
+- **Composição de Custos**: O valor da OS é derivado da soma dos serviços (mão de obra baseada em tabela de referência) e das peças substituídas.
+- **Especialização**: Mecânicos são organizados em equipes para otimizar o atendimento de acordo com a especialidade técnica requisitada.
 
-Ordem de Serviço (OS): Documento centralizador que armazena datas de emissão, previsão de entrega, status de autorização e o valor total calculado.
+## Arquitetura de Dados
 
-Composição de Custos: Separação clara entre Mão-de-obra (tabela de referência de serviços) e Peças, permitindo que o valor total da OS seja a somatória exata de todos os itens e horas técnicas aplicadas.
+O esquema lógico foi projetado visando a integridade referencial e a normalização de dados (3ª Forma Normal). Os artefatos técnicos incluídos são:
 
-Decisões Técnicas
-Normalização: Os serviços e peças foram isolados em tabelas de referência para evitar redundância e facilitar a atualização de preços.
+- **Esquema Relacional**: Diagrama detalhando chaves primárias (PK), chaves estrangeiras (FK) e cardinalidades.
+- **Scripts DDL**: Criação de tabelas com constrangimentos (Constraints) adequados.
+- **Scripts DML**: Persistência de dados para validação de cenários de teste.
+- **Consultas Analíticas**: Queries complexas para extração de métricas de desempenho da oficina.
 
-Tabelas Associativas: Utilizadas (OS_Servico e OS_Peca) para suportar a relação N:M entre a Ordem de Serviço e os itens consumidos nela.
-
-Status de Fluxo: O campo status na OS permite o controle de workflow (Aguardando autorização, Em execução, Concluído).
-
-Documentação Técnica
-A modelagem detalhada pode ser consultada no arquivo técnico anexado:
-
-Modelo_Conceitual_Oficina.pdf: Contém o diagrama de Entidade-Relacionamento (ER) com todos os atributos e cardinalidades.
-
-Ferramentas Utilizadas
-Modelagem: dbdiagram.io
-
-Notação: DBML / Relacional
+## Tecnologias Utilizadas
+- **Banco de Dados**: MySQL / MariaDB
+- **Modelagem**: dbdiagram.io / MySQL Workbench
+- **Linguagem**: SQL (ANSI)
